@@ -50,6 +50,14 @@ const ProfileForm = ({ initialData, onSave }) => {
               variant="outlined" 
               component="span"
               startIcon={<CameraAlt />}
+              sx={{
+                borderColor: '#800020',
+                color: '#800020',
+                '&:hover': {
+                  borderColor: '#5a0015',
+                  color: '#5a0015'
+                }
+              }}
             >
               Change Photo
             </Button>
@@ -61,7 +69,15 @@ const ProfileForm = ({ initialData, onSave }) => {
       </Box>
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Phone Number"
         name="phoneNumber"
         value={formData.phoneNumber || ''}
@@ -70,7 +86,15 @@ const ProfileForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Occupation"
         name="occupation"
         value={formData.occupation || ''}
@@ -79,7 +103,15 @@ const ProfileForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Bio"
         name="bio"
         multiline
@@ -90,7 +122,15 @@ const ProfileForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Status"
         name="status"
         value={formData.status || ''}
@@ -99,7 +139,15 @@ const ProfileForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Secondary Email"
         name="secondaryEmail"
         type="email"
@@ -109,7 +157,10 @@ const ProfileForm = ({ initialData, onSave }) => {
       />
 
       <Box sx={{ mt: 3 }}>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" sx={{
+            backgroundColor: '#800020',
+            '&:hover': { backgroundColor: '#5a0015' }
+          }}>
           Save Profile
         </Button>
       </Box>

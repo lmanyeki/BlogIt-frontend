@@ -3,7 +3,6 @@ import {
   Box, 
   TextField, 
   Button,
-  Typography,
   InputAdornment,
   IconButton
 } from '@mui/material';
@@ -57,7 +56,15 @@ const PasswordForm = ({ onChangePassword }) => {
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Current Password *"
         name="currentPassword"
         type={showPassword.current ? 'text' : 'password'}
@@ -81,7 +88,15 @@ const PasswordForm = ({ onChangePassword }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="New Password *"
         name="newPassword"
         type={showPassword.new ? 'text' : 'password'}
@@ -105,7 +120,15 @@ const PasswordForm = ({ onChangePassword }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Confirm New Password *"
         name="confirmPassword"
         type={showPassword.confirm ? 'text' : 'password'}
@@ -129,7 +152,13 @@ const PasswordForm = ({ onChangePassword }) => {
       />
 
       <Box sx={{ mt: 3 }}>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" 
+          variant="contained"
+          sx={{
+            backgroundColor: '#800020',
+            '&:hover': { backgroundColor: '#5a0015' }
+          }}
+          >
           Change Password
         </Button>
       </Box>

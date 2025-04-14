@@ -41,7 +41,15 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
   return (
     <Box component="form" onSubmit={handleSubmit}>
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="First Name *"
         name="firstName"
         value={formData.firstName}
@@ -52,7 +60,15 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Last Name *"
         name="lastName"
         value={formData.lastName}
@@ -63,7 +79,15 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Email *"
         name="email"
         type="email"
@@ -75,7 +99,15 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
       />
 
       <TextField
-        fullWidth
+        sx={{
+          width: '60%',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#800020' },
+            '&:hover fieldset': { borderColor: '#800020' },
+            '&.Mui-focused fieldset': { borderColor: '#800020' }
+          },
+          '& label.Mui-focused': { color: '#800020' }
+        }}
         label="Username *"
         name="username"
         value={formData.username}
@@ -86,7 +118,10 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
       />
 
       <Box sx={{ mt: 3 }}>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" sx={{
+            backgroundColor: '#800020',
+            '&:hover': { backgroundColor: '#5a0015' }
+          }}>
           Save Personal Info
         </Button>
       </Box>
