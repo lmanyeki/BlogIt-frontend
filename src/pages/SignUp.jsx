@@ -6,7 +6,6 @@ import {
   CssBaseline,
   Divider,
   Grid,
-  Link,
   TextField,
   Typography,
   InputAdornment,
@@ -16,7 +15,6 @@ import {
 import { 
   Visibility, 
   VisibilityOff,
-  Create 
 } from '@mui/icons-material';
 import { 
   Google as GoogleIcon, 
@@ -24,6 +22,11 @@ import {
   Twitter as TwitterIcon 
 } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link, useNavigate } from "react-router-dom";
+import logo from '../assets/logo.png';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import apiUrl from '../utils/api_url';
 
 const theme = createTheme({
   palette: {
@@ -55,14 +58,22 @@ const SignUp = () => {
     firstName: '',
     lastName: '',
     username: '', 
-    email: '',
+    emailAddress: '',
     password: '',
     confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({
-    confirmPassword: ''
+    firstName: '',
+    lastName: '',
+    username: '', 
+    emailAddress: '',
+    password: '',
+    confirmPassword: '',
+    serverError: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,30 +82,56 @@ const SignUp = () => {
       [name]: value,
     }));
 
-
   if (name === 'password' || name === 'confirmPassword') {
     setErrors({
       ...errors,
       confirmPassword: 
-        name === 'password' 
-          ? (value !== formData.confirmPassword && formData.confirmPassword) 
-            ? 'Passwords do not match' 
-            : ''
-          : (value !== formData.password) 
-            ? 'Passwords do not match' 
-            : ''
+        (name === 'password' ? value : formData.password) !== 
+        (name === 'confirmPassword' ? value : formData.confirmPassword)
+        ? 'Passwords do not match' 
+        : ''
       });
     }
   };
 
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["register-user"],
+    mutationFn: async () => {
+      const response = await axios.post(`${apiUrl}/auth/signup`, 
+        {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          username: formData.username,
+          email: formData.emailAddress,
+          password: formData.password
+        });
+      return response.data;
+    },
+    onSuccess: () => {
+      navigate('/login')
+    },
+    onError: (err) => {
+      if (axios.isAxiosError(err)) {
+        setErrors({
+          ...errors,
+          serverError: err.response?.data?.message || "Registration failed."
+        });
+      } else {
+        setErrors({
+          ...errors,
+          serverError: "Something went wrong."
+        });
+      }
+    }
+  });
+    
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setErrors({ confirmPassword: 'Passwords must match' });
       return;
     }
-    console.log('Form submitted:', formData);
-    
+    mutate();
   };
 
   return (
@@ -102,7 +139,8 @@ const SignUp = () => {
       <CssBaseline />
       <Container maxWidth="sm" sx={{ py: 8 }}>
         <Paper elevation={3} sx={{ p: 12, borderRadius: 2 }}>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box  sx={{ textAlign: 'center', mb: 4 }}>
+            <img src={logo} alt="BlogIt Logo" style={{ height: 50, marginBottom: 8 }} />
             <Typography 
               variant="h4" 
               component="h1" 
@@ -115,10 +153,9 @@ const SignUp = () => {
                 gap: 1
               }}
             >
-              <Create sx={{ color: 'secondary.main', fontSize: '2rem' }} /> {/* Pen icon */}
-              BlogIt
+                  BlogIt
             </Typography>
-            <Typography variant="subtitle1" sx={{ color: 'text.secondary' }}>
+            <Typography variant="subtitle1" sx={{ color: 'text.primary' }}>
               Drop the mic, Blog It instead.
             </Typography>
           </Box>
@@ -181,11 +218,11 @@ const SignUp = () => {
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="emailAddress"
                   label="Email Address"
-                  name="email"
+                  name="emailAddress"
                   autoComplete="email"
-                  value={formData.email}
+                  value={formData.emailAddress}
                   onChange={handleChange}
                   sx={{
                     '& .MuiOutlinedInput-root': {
@@ -260,10 +297,17 @@ const SignUp = () => {
               </Grid>
             </Grid>
 
+            {errors.serverError && (
+              <Typography color="error" sx={{ mt: 2 }}>
+                {errors.serverError}
+              </Typography>
+            )}
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              disabled={isPending}
               sx={{
                 mt: 3,
                 mb: 2,
@@ -275,13 +319,18 @@ const SignUp = () => {
                 },
               }}
             >
-              Sign Up
+              {
+                isPending ? "Please wait...": "Sign up"
+              }
             </Button>
 
             <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2" sx={{ color: 'primary.main' }}>
-                  Already have an account? Sign in
+              <Grid>
+              Already have an account?
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Typography variant="body2" sx={{ color: 'primary.main' }}>
+                  Sign in
+                </Typography>
                 </Link>
               </Grid>
             </Grid>
@@ -326,5 +375,6 @@ const SignUp = () => {
     </ThemeProvider>
   );
 };
+  
 
 export default SignUp;
