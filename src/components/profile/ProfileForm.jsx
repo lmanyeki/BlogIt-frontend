@@ -3,7 +3,6 @@ import {
   Box, 
   TextField, 
   Avatar, 
-  IconButton, 
   Button,
   Typography 
 } from '@mui/material';

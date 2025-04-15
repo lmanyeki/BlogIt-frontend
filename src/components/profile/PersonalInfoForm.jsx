@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { 
   Box, 
   TextField, 
-  Button,
-  Typography
+  Button
 } from '@mui/material';
 
 const PersonalInfoForm = ({ initialData, onSave }) => {
@@ -13,7 +12,6 @@ const PersonalInfoForm = ({ initialData, onSave }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // Clear error when typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }

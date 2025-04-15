@@ -128,10 +128,10 @@ const Profile = () => {
   const [alert, setAlert] = useState({ open: false, message: '', severity: 'success' });
 
   const [userData, setUserData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    username: 'johndoe',
+    firstName: 'Anna',
+    lastName: 'Davis',
+    email: 'annad@gmail.com',
+    username: 'anna_dave',
     profilePhoto: '',
     phoneNumber: '',
     occupation: '',
