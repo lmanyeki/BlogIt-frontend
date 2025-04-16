@@ -1,89 +1,65 @@
 import React from 'react';
-import { AppBar, Toolbar, Box, Button, Container, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Typography, Box, Stack, Link } from '@mui/material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
-import logo from './../assets/logo.png';
+import logo from '../assets/logo.png';
 
-const NavBar = () => {
-    const user = useUserStore((state) => state.user);
-    const removeUserInformation = useUserStore((state) => state.removeUserInformation);
+const Navbar = () => {
+  const user = useUserStore((state) => state.user);
+  const clearUser = useUserStore((state) => state.removeUserInformation);
+  const navigate = useNavigate();
 
-    function handleLogOut() {
-        removeUserInformation();
-    }
+  const handleLogout = () => {
+    clearUser();
+    navigate('/login');
+  };
 
-    return (
-        <AppBar position="static" elevation={0} sx={{ bgcolor: 'transparent', py: 2 }}>
-            <Container maxWidth="lg">
-                <Toolbar disableGutters>
-                    <Box component={Link} to="/" sx={{ display: 'flex', alignItems: 'center', mr: 4 }}>
-                        <img src={logo} alt="BlogIt Logo" style={{ height: 40, marginRight: 10 }} />
-                        <Typography variant="h6" sx={{ fontWeight: 700, color: '#800020' }}>
-                            BlogIt
-                        </Typography>
-                    </Box>
-                    <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-                        <Button
-                            component={Link}
-                            to="/about"
-                            sx={{
-                                color: '#800020',
-                                fontWeight: 500,
-                                textTransform: 'none'
-                            }}
-                        >
-                            About BlogIt
-                        </Button>
-                        {!user ? (
-                            <>
-                                <Button
-                                    component={Link}
-                                    to="/login"
-                                    variant="outlined"
-                                    sx={{
-                                        borderColor: '#800020',
-                                        color: '#800020',
-                                        '&:hover': { bgcolor: 'rgba(128, 0, 32, 0.05)' }
-                                    }}
-                                >
-                                    Log In
-                                </Button>
-                                <Button
-                                    component={Link}
-                                    to="/signup"
-                                    variant="contained"
-                                    sx={{
-                                        bgcolor: '#D4AF37',
-                                        color: 'white',
-                                        '&:hover': { bgcolor: '#c1931a' }
-                                    }}
-                                >
-                                    Sign Up
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Typography variant="body1" sx={{ color: '#800020', fontWeight: 500 }}>
-                                    Welcome, {user.username}
-                                </Typography>
-                                <Button
-                                    onClick={handleLogOut}
-                                    variant="outlined"
-                                    sx={{
-                                        borderColor: '#800020',
-                                        color: '#800020',
-                                        '&:hover': { bgcolor: 'rgba(128, 0, 32, 0.05)' }
-                                    }}
-                                >
-                                    Log Out
-                                </Button>
-                            </>
-                        )}
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
-    );
+  return (
+    <AppBar position="static" sx={{ bgcolor: '#f7ebd3', px: 2 }}>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Box component={RouterLink} sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+        <Link to="/bloglisting">
+            <img src={logo} alt="BlogIt Logo" style={{ height: 40 }} />
+        </Link>
+      
+        <Typography
+          component={RouterLink}
+          to="/bloglisting"
+          variant="h6"
+          sx={{ textDecoration: 'none', color: '#800020', fontWeight: 'bold', lineHeight: 1 }}
+        >
+          BlogIt
+        </Typography>
+        </Box>
+      
+
+        <Stack direction="row" spacing={2} alignItems="center">
+          {!user ? (
+            <>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/about">About</Button>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/login">Log In</Button>
+              <Button variant="outlined" sx={{ bgcolor: '#800020', color: '#D4AF37', borderColor: '#D4AF37' }} component={RouterLink} to="/signup">
+                Sign Up
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/bloglisting">Explore</Button>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/write">Write</Button>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/myblogs">My Blogs</Button>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/articles">Explore</Button>
+
+              <Typography sx={{ color: '#800020', ml: 2 }}>Hi, {user.username}</Typography>
+
+              <Button variant="outlined" sx={{ bgcolor: '#800020', color: '#d4af37', borderColor: 'white' }} onClick={handleLogout}>
+                Log Out
+              </Button>
+            </>
+          )}
+        </Stack>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
-export default NavBar;
+export default Navbar;

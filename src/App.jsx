@@ -3,11 +3,14 @@ import SignUp from './pages/SignUp';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import BlogListing from './pages/BlogListing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './pages/Profile';
 // import Article from './pages/Article';
-import Protected from './components/Protected';
+// import Protected from './components/Protected';
 // import MyBlogsPage from './pages/MyBlogsPage';
+import Write from './pages/Write';
+import MyBlogs from './pages/MyBlogs';
 const queryClient = new QueryClient();
 
 function App() {
@@ -19,14 +22,50 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/profile" element={<Profile />} />
-          {/* <Route path="/article" element={<Article />} /> */}
+          <Route path="/bloglisting" element={<BlogListing />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/blogss" element={<MyBlogs />} />
+
+
+
           {/* <Route 
-            path="myblogs"
+            path="/bloglisting"
+            element={
+              <Protected>
+                <BlogListing />
+              </Protected>
+            }
+            />
+          <Route 
+            path="/myblogs"
             element={
               <Protected>
                 <MyBlogsPage />
+              </Protected>
+            }
+            />
+          <Route 
+            path="/article/:id"
+            element={
+              <Protected>
+                <Article />
+              </Protected>
+            }
+            />
+          <Route 
+            path="/profile"
+            element={
+              <Protected>
+                <Profile />
+              </Protected>
+            }
+            />
+          <Route 
+            path="/write"
+            element={
+              <Protected>
+                <Write />
               </Protected>
             }
             /> */}

@@ -2,30 +2,11 @@ import React from 'react';
 import { Box, Container, Typography, AppBar, Toolbar, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CTAButton from '../components/CTAButton';
-import logo from '../assets/logo.png';
 import image from '../assets/background2.jpg';
 const Home = () => {
-  const navigate = useNavigate();
   return (
-    <Box sx={{ minHeight: '100vh' }}>
-      <AppBar position="static" sx={{ backgroundColor: 'beige', boxShadow: 'none' }}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src={logo} alt="BlogIt Logo" style={{ height: 40, marginRight: 10 }} />
-            <Typography variant="h6" sx={{ color: '#800020', fontWeight: 'bold' }}>
-              BlogIt
-            </Typography>
-          </Box>
-          <Box>
-            <Button color="inherit" sx={{ color: '#800020', fontWeight: 'bold' }} onClick={() => navigate('/login')}>
-              Log In
-            </Button>
-            <Button variant="contained" sx={{ bgcolor: '#800020', ml: 2 }} onClick={() => navigate('/signup')}>
-              Sign Up
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
+    <Box sx={{ minHeight: '80vh' }}>
+      
       <Box sx={{
         bgcolor: '#800020',
         py: 12,

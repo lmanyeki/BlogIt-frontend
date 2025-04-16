@@ -83,26 +83,25 @@ const SignUp = () => {
     }));
 
   if (name === 'password' || name === 'confirmPassword') {
-    setErrors({
-      ...errors,
-      confirmPassword: 
-        (name === 'password' ? value : formData.password) !== 
-        (name === 'confirmPassword' ? value : formData.confirmPassword)
-        ? 'Passwords do not match' 
-        : ''
-      });
+    const newPassword = name === 'password' ? value : formData.password;
+      const newConfirm = name === 'confirmPassword' ? value : formData.confirmPassword;
+
+      setErrors(prev => ({
+        ...prev,
+        confirmPassword: newPassword !== newConfirm ? 'Passwords do not match' : '',
+      }));
     }
   };
 
   const { isPending, mutate } = useMutation({
     mutationKey: ["register-user"],
     mutationFn: async () => {
-      const response = await axios.post(`${apiUrl}/auth/signup`, 
+      const response = await axios.post(`http://localhost:3000/auth/signup`, 
         {
           firstName: formData.firstName,
           lastName: formData.lastName,
           username: formData.username,
-          email: formData.emailAddress,
+          emailAddress: formData.emailAddress,
           password: formData.password
         });
       return response.data;
@@ -112,23 +111,23 @@ const SignUp = () => {
     },
     onError: (err) => {
       if (axios.isAxiosError(err)) {
-        setErrors({
-          ...errors,
-          serverError: err.response?.data?.message || "Registration failed."
-        });
+        setErrors(prev => ({
+          ...prev,
+          serverError: err.response?.data?.message || "Registration failed.",
+        }));
       } else {
-        setErrors({
-          ...errors,
-          serverError: "Something went wrong."
-        });
+        setErrors(prev => ({
+          ...prev,
+          serverError: "Something went wrong.",
+        }));
       }
-    }
+    },
   });
     
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setErrors({ confirmPassword: 'Passwords must match' });
+      setErrors(prev => ({ ...prev, confirmPassword: 'Passwords must match' }));
       return;
     }
     mutate();

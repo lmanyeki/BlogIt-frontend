@@ -28,19 +28,24 @@ const Login = () => {
   const loginMutation = useMutation({
     mutationKey: ["login-user"],
     mutationFn: async ({ identifier, password }) => {
-      const response = await axios.post(`${apiUrl}/auth/login`, {
+      try {
+      const response = await axios.post(`http://localhost:3000/auth/login`, {
         identifier, 
         password
       }, 
         {withCredentials: true});
       return response.data;
+    } catch (err) {
+      console.error('Login error:', err.response?.data || err.message);
+      throw new Error(err.response?.data?.message || "Login failed. Please try again.");
+    }
     },
     onSuccess: (data) => {
       setUserInformation(data)
-      navigate('/profile')
+      navigate('/bloglisting')
     },
     onError: (err) => {
-      setError(err.response?.data?.message || "Login failed. Please try again.");
+      setError(err.message);
     }
   });
 
@@ -104,7 +109,7 @@ const Login = () => {
           fullWidth
           variant="contained"
           type="submit"
-          disabled={loginMutation.isLoading}
+          disabled={loginMutation.isPending}
           sx={{
             mt: 3,
             py: 1.5,
@@ -112,7 +117,7 @@ const Login = () => {
             '&:hover': { bgcolor: '#600018' }
           }}
         >
-          {loginMutation.isLoading ? 'Logging in...' : 'Log In'}
+          {loginMutation.isPending ? 'Logging in...' : 'Log In'}
         </Button>
 
         <Typography sx={{ mt: 2, textAlign: 'center' }}>
