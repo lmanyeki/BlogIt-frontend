@@ -7,11 +7,12 @@ import BlogListing from './pages/BlogListing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './pages/Profile';
 import BlogDetail from './pages/BlogDetail';
-// import Protected from './components/Protected';
-// import MyBlogsPage from './pages/MyBlogsPage';
-import Write from './pages/BlogEditor';
+import Protected from './components/Protected';
 import MyBlogs from './pages/MyBlogs';
 import ArticlePage from './pages/ArticlePage';
+import EditBlog from './pages/EditBlog';
+import BlogEditor from './pages/BlogEditor';
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -23,56 +24,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/bloglisting" element={<BlogListing />} />
-          <Route path="/write" element={<Write />} />
-          <Route path="/myblogs" element={<MyBlogs />} />
-          <Route path="/blogs/:id" element={<BlogDetail />} /> 
-          <Route path="/article" element={<ArticlePage />} />
-     
+          <Route path="/profile" element={<Protected><Profile /></Protected>} />
+          <Route path="/bloglisting" element={<Protected><BlogListing /></Protected>} />
+          <Route path="/write" element={<Protected><BlogEditor /></Protected>} />
+          <Route path="/myblogs" element={<Protected><MyBlogs /></Protected>} />
+          <Route path="/blogs/:id" element={<Protected><BlogDetail /></Protected>} /> 
+          <Route path="/article" element={<Protected><ArticlePage /></Protected>} />
 
-
-
-          {/* <Route 
-            path="/bloglisting"
-            element={
-              <Protected>
-                <BlogListing />
-              </Protected>
-            }
-            />
-          <Route 
-            path="/myblogs"
-            element={
-              <Protected>
-                <MyBlogsPage />
-              </Protected>
-            }
-            />
-          <Route 
-            path="/article/:id"
-            element={
-              <Protected>
-                <Article />
-              </Protected>
-            }
-            />
-          <Route 
-            path="/profile"
-            element={
-              <Protected>
-                <Profile />
-              </Protected>
-            }
-            />
-          <Route 
-            path="/write"
-            element={
-              <Protected>
-                <Write />
-              </Protected>
-            }
-            /> */}
         </Routes>
       </BrowserRouter>
       </QueryClientProvider>
