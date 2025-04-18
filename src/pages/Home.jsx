@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Container, Typography, AppBar, Toolbar, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Box, Container, Typography } from '@mui/material';
 import CTAButton from '../components/CTAButton';
 import image from '../assets/background2.jpg';
 const Home = () => {
   return (
-    <Box sx={{ minHeight: '80vh' }}>
+    <Box sx={{ minHeight: '40vh' }}>
       
       <Box sx={{
         bgcolor: '#800020',

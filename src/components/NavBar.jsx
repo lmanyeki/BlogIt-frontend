@@ -47,7 +47,7 @@ const Navbar = () => {
               <Button sx={{ color: '#800020' }} component={RouterLink} to="/bloglisting">Explore</Button>
               <Button sx={{ color: '#800020' }} component={RouterLink} to="/write">Write</Button>
               <Button sx={{ color: '#800020' }} component={RouterLink} to="/myblogs">My Blogs</Button>
-              <Button sx={{ color: '#800020' }} component={RouterLink} to="/articles">Explore</Button>
+              <Button sx={{ color: '#800020' }} component={RouterLink} to="/articles">My Profile</Button>
 
               <Typography sx={{ color: '#800020', ml: 2 }}>Hi, {user.username}</Typography>
 

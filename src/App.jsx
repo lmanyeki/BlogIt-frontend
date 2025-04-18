@@ -6,11 +6,12 @@ import Login from './pages/Login';
 import BlogListing from './pages/BlogListing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Profile from './pages/Profile';
-// import Article from './pages/Article';
+import BlogDetail from './pages/BlogDetail';
 // import Protected from './components/Protected';
 // import MyBlogsPage from './pages/MyBlogsPage';
-import Write from './pages/Write';
+import Write from './pages/BlogEditor';
 import MyBlogs from './pages/MyBlogs';
+import ArticlePage from './pages/ArticlePage';
 const queryClient = new QueryClient();
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <Route path="/bloglisting" element={<BlogListing />} />
           <Route path="/write" element={<Write />} />
           <Route path="/blogss" element={<MyBlogs />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} /> 
+          <Route path="/article" element={<ArticlePage />} />
+     
 
 
 
