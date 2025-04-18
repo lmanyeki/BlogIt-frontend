@@ -31,6 +31,7 @@ import ReactMarkdown from 'react-markdown';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import ImageIcon from '@mui/icons-material/Image';
 import { styled } from '@mui/material/styles';
+import apiUrl from '../utils/api_url';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -88,7 +89,7 @@ const BlogEditor = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+    if (file.size > 5 * 1024 * 1024) { 
       setErrors({ ...errors, featuredImage: 'Image size should be less than 5MB' });
       return;
     }
@@ -182,7 +183,7 @@ const BlogEditor = () => {
       formData.append('body', blogData.body);
       formData.append('featuredImage', blogData.featuredImage);
       
-      const response = await axios.post('http://localhost:3000/blogs', formData, {
+      const response = await axios.post('${apiUrl}/blogs', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true
       });

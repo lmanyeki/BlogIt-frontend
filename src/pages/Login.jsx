@@ -29,7 +29,7 @@ const Login = () => {
     mutationKey: ["login-user"],
     mutationFn: async ({ identifier, password }) => {
       try {
-      const response = await axios.post(`http://localhost:3000/auth/login`, {
+      const response = await axios.post(`${apiUrl}/auth/login`, {
         identifier, 
         password
       }, 

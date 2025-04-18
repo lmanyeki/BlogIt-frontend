@@ -17,6 +17,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import moment from 'moment';
 import useUserStore from '../store/userStore';
+import apiUrl from '../utils/api_url';
 
 const ArticlePage = () => {
   const { id } = useParams();
@@ -32,20 +33,20 @@ const ArticlePage = () => {
       try {
         setLoading(true);
 
-        const articleResponse = await axios.get(`http://localhost:3000/blogs/${id}`, {
+        const articleResponse = await axios.get(`${apiUrl}/blogs/${id}`, {
           withCredentials: true
         });
         setArticle(articleResponse.data);
        if (articleResponse.data.author_id) {
           const authorArticlesResponse = await axios.get(
-            `http://localhost:3000/blogs/author/${articleResponse.data.author_id}?exclude=${id}&limit=5`,
+            `${apiUrl}/blogs/author/${articleResponse.data.author_id}?exclude=${id}&limit=5`,
             { withCredentials: true }
           );
           setAuthorArticles(authorArticlesResponse.data);
         }
         if (!authorArticlesResponse?.data?.length || authorArticlesResponse?.data?.length < 5) {
           const otherArticlesResponse = await axios.get(
-            `http://localhost:3000/blogs?exclude=${id}&limit=${5 - (authorArticlesResponse?.data?.length || 0)}`,
+            `${apiUrl}/blogs?exclude=${id}&limit=${5 - (authorArticlesResponse?.data?.length || 0)}`,
             { withCredentials: true }
           );
           setOtherArticles(otherArticlesResponse.data);

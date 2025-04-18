@@ -18,6 +18,7 @@ import ReactMarkdown from 'react-markdown';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import useUserStore from '../store/userStore';
+import apiUrl from '../utils/api_url';
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const BlogDetail = () => {
   const { data: blog, isLoading, isError, error } = useQuery({
     queryKey: ['blog', id],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3000/blogs/${id}`, {
+      const response = await axios.get(`${apiUrl}/blogs/${id}`, {
         withCredentials: true
       });
       return response.data;
@@ -82,7 +83,7 @@ const BlogDetail = () => {
 
       <Box sx={{ mb: 4, borderRadius: 2, overflow: 'hidden', maxHeight: '500px' }}>
         <img 
-          src={`http://localhost:3000${blog.featuredImage}`} 
+          src={`${apiUrl}${blog.featuredImage}`} 
           alt={blog.title}
           style={{ width: '100%', objectFit: 'cover' }}
         />

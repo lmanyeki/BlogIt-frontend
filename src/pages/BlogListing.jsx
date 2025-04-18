@@ -19,23 +19,22 @@ import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 import PersonIcon from '@mui/icons-material/Person';
 import useUserStore from '../store/userStore';
+import apiUrl from '../utils/api_url';
 
 const BlogListing = () => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state);
   
-  // Fetch blog posts
   const { data: blogs, isLoading, isError, error } = useQuery({
     queryKey: ['blogs'],
     queryFn: async () => {
-      const response = await axios.get('http://localhost:3000/blogs', {
+      const response = await axios.get('${apiUrl}/blogs', {
         withCredentials: true
       });
       return response.data;
     }
   });
 
-  // Check if user is logged in, redirect to login if not
   useEffect(() => {
     if (!user?.username) {
       navigate('/login');

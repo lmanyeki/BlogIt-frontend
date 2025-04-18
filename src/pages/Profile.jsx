@@ -12,6 +12,7 @@ import axios from 'axios';
 import ProfileForm from '../components/profile/ProfileForm';
 import PersonalInfoForm from '../components/profile/PersonalInfoForm';
 import PasswordForm from '../components/profile/PasswordForm';
+import apiUrl from '../utils/api_url';
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -32,7 +33,7 @@ const Profile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/profile')
+      .get('${apiUrl}/api/profile')
       .then((response) => setUserData(response.data))
       .catch((error) => showAlert('Failed to load user data', 'error'));
   }, []);
@@ -43,7 +44,7 @@ const Profile = () => {
 
   const handleProfileSave = async (data) => {
     try {
-      await axios.put('http://localhost:3000/api/profile', data);
+      await axios.put('${apiUrl}/api/profile', data);
       setUserData({ ...userData, ...data });
     showAlert('Profile updated successfully!', 'success');
   } catch (error) {
@@ -53,7 +54,7 @@ const Profile = () => {
 
   const handlePersonalInfoSave = async (data) => {
     try {
-      await axios.put('http://localhost:3000/api/profile', data);
+      await axios.put('${apiUrl}/api/profile', data);
       setUserData({ ...userData, ...data });
       showAlert('Personal information updated successfully!', 'success');
     } catch (error) {
@@ -63,7 +64,7 @@ const Profile = () => {
 
   const handlePasswordChange = async (passwords) => {
     try {
-      await axios.put('http://localhost:3000/api/change-password', passwords);
+      await axios.put('${apiUrl}/api/change-password', passwords);
       showAlert('Password changed successfully!', 'success');
     } catch (error) {
       showAlert(error.message || 'Failed to change password', 'error');

@@ -33,6 +33,7 @@ import ReactMarkdown from 'react-markdown';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import ImageIcon from '@mui/icons-material/Image';
 import { styled } from '@mui/material/styles';
+import apiUrl from '../utils/api_url';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -82,15 +83,14 @@ const EditBlog = () => {
     const fetchBlogData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/blogs/${id}`, {
+        const response = await axios.get(`${apiUrl}/blogs/${id}`, {
           withCredentials: true
         });
 
         const blog = response.data;
         
-        // Check if current user is the author
         if (blog.author_id !== user?.id) {
-          navigate('/my-blogs');
+          navigate('/myblogs');
           return;
         }
 
@@ -98,7 +98,7 @@ const EditBlog = () => {
           title: blog.title || '',
           excerpt: blog.excerpt || '',
           body: blog.body || '',
-          featuredImage: null, // Will only be set if user uploads a new image
+          featuredImage: null,
           featuredImagePreview: blog.featuredImage || null,
           originalFeaturedImage: blog.featuredImage || null
         });
@@ -132,7 +132,7 @@ const EditBlog = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+    if (file.size > 5 * 1024 * 1024) { 
       setErrors({ ...errors, featuredImage: 'Image size should be less than 5MB' });
       return;
     }
@@ -228,7 +228,7 @@ const EditBlog = () => {
         formData.append('featuredImage', blogData.featuredImage);
       }
       
-      const response = await axios.put(`http://localhost:3000/blogs/${id}`, formData, {
+      const response = await axios.put(`${apiUrl}/blogs/${id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true
       });
@@ -257,7 +257,7 @@ const EditBlog = () => {
   };
 
   const goBack = () => {
-    navigate('/my-blogs');
+    navigate('/myblogs');
   };
 
   if (loading) {

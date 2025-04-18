@@ -27,6 +27,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import useUserStore from '../store/userStore';
+import apiUrl from '../utils/api_url';
 
 const MyBlogs = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const MyBlogs = () => {
     const fetchUserBlogs = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:3000/blogs/my-blogs', {
+        const response = await axios.get('${apiUrl}/blogs/my-blogs', {
           withCredentials: true
         });
         setBlogs(response.data);
@@ -84,7 +85,7 @@ const MyBlogs = () => {
     
     setDeleteStatus({ loading: true, error: null });
     try {
-      await axios.delete(`http://localhost:3000/blogs/${blogToDelete.id}`, {
+      await axios.delete(`${apiUrl}/blogs/${blogToDelete.id}`, {
         withCredentials: true
       });
       
